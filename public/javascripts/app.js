@@ -86,7 +86,7 @@ app.controller('ClientController', function ($scope,
         showFilter: false,
         showColumnMenu: false,
         jqueryUITheme: false,
-        showGroupPanel: true,
+        showGroupPanel: false,
         columnDefs: [
             {field: 'ean', displayName: 'Код', enableCellEdit: false},
             {field:'name', displayName:'Название', enableCellEdit: true},
