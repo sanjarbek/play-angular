@@ -1,23 +1,26 @@
 
-var app = angular.module('myApp', ['ngGrid', 'angular-loading-bar']);
+var app = angular.module('myApp', ['ngGrid', 'angular-loading-bar', 'ui.router']);
+
+app.config(function($stateProvider, $urlRouterProvider) {
+
+//    $urlRouterProvider.otherwise("/test")
+
+    $stateProvider
+        // HOME STATES AND NESTED VIEWS ========================================
+        .state('new', {
+            url: '/create.html',
+            templateUrl : '/clients/create.html',
+            controller  : 'ClientController'
+        })
+        .state('list', {
+            url: '/list.html',
+            templateUrl : '/clients/list.html',
+            controller  : 'ClientController'
+        });
+});
 
 app.controller('ClientController', function ($scope,
                                              $http) {
-
-//    $routeProvider
-//        .when("/clients",
-//        { templateUrl: "/clients",
-//            controller: "ClientController" })
-//        .when("/clients/new",
-//        { templateUrl: "/clients/new",
-//            controller: "ClientController" })
-//        .when("/clients/:id",
-//        { templateUrl: "<%= asset_path('contacts/show.html') %> ",
-//            controller: "ClientController" })
-//        .when("/clients/:id/edit",
-//        { templateUrl: "<%= asset_path('contacts/edit.html') %> ",
-//            controller: "ClientController" })
-//        .otherwise({ redirectTo: "/clients" });
 
     $scope.pagingOptions = {
         pageSizes: [5, 10, 20],
@@ -45,14 +48,14 @@ app.controller('ClientController', function ($scope,
             var data;
             if (searchText) {
                 var ft = searchText.toLowerCase();
-                $http.get('/clients').success(function (largeLoad) {
+                $http.get('/clients/list.json/'+page+'/'+pageSize ).success(function (largeLoad) {
                     data = largeLoad.filter(function(item) {
                         return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
                     });
                     $scope.setPagingData(data,page,pageSize);
                 });
             } else {
-                $http.get('/clients').success(function (largeLoad) {
+                $http.get('/clients/list.json/'+page+'/'+pageSize).success(function (largeLoad) {
                     $scope.setPagingData(largeLoad,page,pageSize);
                 });
             }
@@ -82,11 +85,14 @@ app.controller('ClientController', function ($scope,
         showSelectionCheckbox: true,
         showFilter: false,
         showColumnMenu: false,
-        showGroupPanel: false,
+        jqueryUITheme: false,
+        showGroupPanel: true,
         columnDefs: [
             {field: 'ean', displayName: 'Код', enableCellEdit: false},
             {field:'name', displayName:'Название', enableCellEdit: true},
-            {field:'description', displayName:'Описание', enableCellEdit: true}
+            {field:'description', displayName:'Описание', enableCellEdit: true},
+            {field:'', displayName:'', enableCellEdit: true,
+            cellTemplate: '<button onclick="alert(\"Hello world\")" >Save</button>'}
         ]
     };
 });

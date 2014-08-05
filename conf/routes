@@ -3,11 +3,19 @@
 # ~~~~
 
 # Home page
-GET        /                     controllers.Application.index
-GET        /clients              controllers.Clients.list
+#GET        /                          controllers.Application.index
+GET        /clients                                                controllers.Clients.index
+GET        /clients/create.html                                    controllers.Clients.create
+GET        /clients/list.html                                      controllers.Clients.list
+GET        /clients/list.json/:page/:pageSize        controllers.Clients.jsonList(page: Int, pageSize: Int)
 
-GET        /webjars/*file        controllers.WebJarAssets.at(file)
+#GET        /                          controllers.TestSpa.index
+GET        /pages/home.html                                        controllers.TestSpa.home
+GET        /pages/about.html                                       controllers.TestSpa.about
+GET        /pages/contact.html                                     controllers.TestSpa.contact
+
+GET        /webjars/*file                                          controllers.WebJarAssets.at(file)
 # Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file         controllers.Assets.at(path="/public", file)
+GET        /assets/*file                                           controllers.Assets.at(path="/public", file)
 
     

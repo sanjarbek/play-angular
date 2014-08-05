@@ -7,13 +7,6 @@ import play.api.libs.functional.syntax._
 case class Client(ean: Long, name: String, description: String)
 
 object Client {
-//  implicit object ClientWrites extends Writes[Client] {
-//    def writes(p: Client) = Json.obj(
-//      "ean" -> Json.toJson(p.ean),
-//      "name" -> Json.toJson(p.name),
-//      "description" -> Json.toJson(p.description)
-//    )
-//  }
 
   implicit val clientWrites: Writes[Client] = (
     (JsPath \ "ean").write[Long] and
@@ -84,8 +77,11 @@ object Client {
     Client(5018206244611L, "Zebra Paperclips",
       "Zebra Length 28mm Assorted 150 Pack")
   )
+
   def findAll = this.clients.toList.sortBy(_.ean)
+
   def findByEan(ean: Long) = this.clients.find(_.ean == ean)
+
   def save(client: Client) = {
     findByEan(client.ean).map( oldClient =>
       this.clients = this.clients - oldClient + client
@@ -93,4 +89,5 @@ object Client {
         throw new IllegalArgumentException("Product not found")
       )
   }
+
 }

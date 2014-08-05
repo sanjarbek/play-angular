@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="scotchApp">
+    <head>
+        <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.css"))'>
+        <script type="text/javascript" src='@routes.WebJarAssets.at(WebJarAssets.locate("angular.min.js"))'></script>
+        <script type="text/javascript" src='@routes.WebJarAssets.at(WebJarAssets.locate("angular-ui-router.min.js"))'></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/test.js")"></script>
+    </head>
+    <body ng-controller="mainController">
+
+            <!-- HEADER AND NAVBAR -->
+        <header>
+            <nav class="navbar navbar-default">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" ui-sref="home">Angular Routing Example</a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a ui-sref="home"><i class="fa fa-home"></i> Home</a></li>
+                        <li><a ui-sref="about"><i class="fa fa-shield"></i> About</a></li>
+                        <li><a ui-sref="contact"><i class="fa fa-comment"></i> Contact</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+            <!-- MAIN CONTENT AND INJECTED VIEWS -->
+        <div id="main">
+            <div class="container">
+                <div ui-view></div>
+            </div>
+        </div>
+
+            <!-- FOOTER -->
+        <footer class="text-center">
+			View the tutorial on <a href="http://scotch.io/tutorials/angular-routing-and-templating-tutorial">Scotch.io</a>
+		</footer>
+
+    </body>
+</html>
