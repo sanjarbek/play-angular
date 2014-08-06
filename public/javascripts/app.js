@@ -22,6 +22,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 app.controller('ClientController', function ($scope,
                                              $http) {
 
+    $scope.modalShown = false;
+    $scope.toggleModal = function() {
+        $scope.modalShown = !$scope.modalShown;
+    };
+
     $scope.pagingOptions = {
         pageSizes: [5, 10, 20],
         pageSize: 5,
@@ -94,5 +99,27 @@ app.controller('ClientController', function ($scope,
             {field:'', displayName:'', enableCellEdit: true,
             cellTemplate: '<button onclick="alert(\"Hello world\")" >Save</button>'}
         ]
+    };
+});
+
+app.directive('modalDialog', function() {
+    return {
+        restrict: 'E',
+        scope: {
+            show: '='
+        },
+        replace: true, // Replace with the template below
+        transclude: true, // we want to insert custom content inside the directive
+        link: function(scope, element, attrs) {
+            scope.dialogStyle = {};
+            if (attrs.width)
+                scope.dialogStyle.width = attrs.width;
+            if (attrs.height)
+                scope.dialogStyle.height = attrs.height;
+            scope.hideModal = function() {
+                scope.show = false;
+            };
+        },
+        template: '...' // See below
     };
 });

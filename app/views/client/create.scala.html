@@ -1,9 +1,40 @@
-<div class="input-group">
-    <input type="text"  class="form-control" ng-model="name" />
-</div>
-<div class="input-group">
-    <input type="text"  class="form-control" ng-model="ean" />
-</div>
-<div class="input-group">
-    <input type="text"  class="form-control" ng-model="description" />
+<div class="panel panel-success">
+    <div class="panel-heading">
+        Создать нового пользователя
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="control-group col-sm-4">
+                <label class="control-label">Name</label>
+                <div class="controls">
+                    <input type="text"  class="form-control" ng-model="name" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="control-group col-sm-4">
+                <label class="control-label">EAN</label>
+                <div class="controls">
+                    <input type="text"  class="form-control" ng-model="ean" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="control-group col-sm-4">
+                <label class="control-label">Description</label>
+                <div class="controls">
+                    <input type="text"  class="form-control" ng-model="description" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="control-group col-sm-12">
+                <div class="controls">
+                    <input type="submit" class="btn btn-primary pull-right" value="Сохранить" />
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
