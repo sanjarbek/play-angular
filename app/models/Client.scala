@@ -14,6 +14,12 @@ object Client {
       (JsPath \ "description").write[String]
     )(unlift(Client.unapply))
 
+  implicit val clientReads: Reads[Client] = (
+    (JsPath \ "ean").read[Long] and
+      (JsPath \ "name").read[String] and
+      (JsPath \ "description").read[String]
+    )(Client.apply _)
+
 
   var clients = Set(
     Client(5010255079763L, "Paperclips Large",
@@ -24,56 +30,6 @@ object Client {
       "Giant Plain Pack of 10000"),
     Client(5018306312913L, "No Tear Paper Clip",
       "No Tear Extra Large Pack of 1000"),
-    Client(5018306312913L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5013306312913L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018206312913L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018336312913L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018304312913L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018306512913L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018306362913L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018306316913L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018306312613L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018306312963L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018306312917L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018306312912L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018306312113L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018306315913L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018306312913L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018306312913L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018306312913L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018306312913L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018306312913L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018306312913L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018306312913L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018306312913L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018306312913L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018306312913L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
-    Client(5018306312913L, "No Tear Paper Clip",
-      "No Tear Extra Large Pack of 1000"),
     Client(5018206244611L, "Zebra Paperclips",
       "Zebra Length 28mm Assorted 150 Pack")
   )
@@ -81,6 +37,10 @@ object Client {
   def findAll = this.clients.toList.sortBy(_.ean)
 
   def findByEan(ean: Long) = this.clients.find(_.ean == ean)
+
+  def add(client: Client) = {
+    clients += client
+  }
 
   def save(client: Client) = {
     findByEan(client.ean).map( oldClient =>

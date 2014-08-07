@@ -22,6 +22,31 @@ app.config(function($stateProvider, $urlRouterProvider) {
 app.controller('ClientController', function ($scope,
                                              $http) {
 
+    $scope.createFormData = {}
+
+    // process the form
+    $scope.processForm = function() {
+        var data = {
+            name: $scope.createFormData.name,
+            ean: $scope.createFormData.ean,
+            description: $scope.createFormData.description
+        };
+
+        $http.post('/clients/save.json', data)
+            .success(function(data) {
+                console.log(data);
+
+                if (!data.success) {
+                    // if not successful, bind errors to error variables
+                    $scope.errorName = data.errors.name;
+                    $scope.errorSuperhero = data.errors.superheroAlias;
+                } else {
+                    // if successful, bind success message to message
+                    $scope.message = data.message;
+                }
+            });
+    };
+
     $scope.modalShown = false;
     $scope.toggleModal = function() {
         $scope.modalShown = !$scope.modalShown;

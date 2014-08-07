@@ -28,4 +28,18 @@ object Clients extends Controller {
     Ok(Json.toJson(clients))
   }
 
+  def save() = Action(parse.json) { request =>
+    val clientJson = request.body
+    val client = clientJson.as[Client]
+
+    try {
+      Client.add(client)
+      Ok("Saved")
+    }
+    catch{
+      case e: IllegalArgumentException =>
+        BadRequest("Can not save client information.")
+    }
+  }
+
 }
